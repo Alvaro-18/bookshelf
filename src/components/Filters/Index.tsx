@@ -1,17 +1,17 @@
 import {MagnifyingGlassIcon} from "@radix-ui/react-icons";
 import {Box, TextField} from "@radix-ui/themes";
 import {useEffect, useState} from "react";
-import { Container } from "./Index.styles";
+import {Container} from "./Index.styles";
+import {FilterPopover} from "../FilterPopover/Index";
+import {FilterPageSize} from "../FilterPageSize/Index";
+import {FiltersInterface} from "../../interfaces/Filters";
 
 export const Filters = ({
   columnFilters,
   setColumnFilters,
-}: {
-  columnFilters: {id: string; value: string}[];
-  setColumnFilters: React.Dispatch<
-    React.SetStateAction<{id: string; value: string}[]>
-  >;
-}) => {
+  paginationSize,
+  setPagination,
+}: FiltersInterface) => {
   const bookName = columnFilters.find(book => book.id == "title")?.value || "";
   const [value, setValue] = useState(bookName);
 
@@ -29,10 +29,10 @@ export const Filters = ({
 
   return (
     <Container>
-      <Box maxWidth="200px">
+      <Box maxWidth="300px">
         <TextField.Root
           placeholder="Search the book name"
-          size="1"
+          size="2"
           onChange={e => {
             setValue(e.target.value);
           }}
@@ -42,6 +42,16 @@ export const Filters = ({
           </TextField.Slot>
         </TextField.Root>
       </Box>
+      <FilterPopover
+        columnFilters={columnFilters}
+        setColumnFilters={setColumnFilters}
+        filterId="category"
+        options={["Fantasy", "Mystery", "Terror"]}
+      />
+      <FilterPageSize
+        paginationSize={paginationSize}
+        setPagination={setPagination}
+      />
     </Container>
   );
 };
