@@ -1,4 +1,4 @@
-import { Author } from "./author.type";
+import {Author} from "./author.type";
 
 export type Book = {
   id: string;
@@ -10,4 +10,5 @@ export type Book = {
   numberOfPages: number;
   category: string;
   synopsis: string;
+  menu: boolean;
 };

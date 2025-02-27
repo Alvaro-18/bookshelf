@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 interface ThemeToggleProps {
   theme: string;
@@ -17,7 +17,7 @@ export const RelativeWrapper = styled.div`
 `;
 
 export const HiddenCheckbox = styled.input.attrs({
-  type: 'checkbox',
+  type: "checkbox",
 })`
   position: absolute;
   width: 100%;
@@ -27,7 +27,8 @@ export const HiddenCheckbox = styled.input.attrs({
 `;
 
 export const Background = styled.div<ThemeToggleProps>`
-  background-color: ${(props) => (props.theme === 'dark' ? '#2d2d2d' : '#e0e0e0')};
+  background-color: ${props =>
+    props.theme === "dark" ? "#2d2d2d" : "#e0e0e0"};
   width: 4.375rem;
   height: 2.25rem;
   border-radius: 9999px;
@@ -36,14 +37,14 @@ export const Background = styled.div<ThemeToggleProps>`
 export const Dot = styled.div<ThemeToggleProps>`
 
   position: absolute;
-  left: 0.375rem; /* 1.5 */
-  top: 0.20rem; /* 1 */
-  background-color:background-color: ${(props) => (props.theme === 'dark' ? '#2d2d2d' : '#e0e0e0')};
-  width: 1.875rem; /* 7.5 */
-  height: 1.875rem; /* 7.5 */
+  left: 0.375rem;
+  top: 0.20rem; 
+  background-color:background-color: ${props => (props.theme === "dark" ? "#2d2d2d" : "#e0e0e0")};
+  width: 1.875rem; 
+  height: 1.875rem; 
   border-radius: 9999px;
   transition: transform 0.3s ease-in-out;
-  transform: ${(props) => (props.theme === 'dark' ? 'translateX(1.75rem)' : 'none')};
+  transform: ${props => (props.theme === "dark" ? "translateX(1.75rem)" : "none")};
 `;
 
 export const SunIcon = styled.svg`

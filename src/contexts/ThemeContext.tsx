@@ -1,8 +1,8 @@
-import { createContext, useState, ReactNode, useEffect } from "react";
+import {createContext, useState, ReactNode, useEffect} from "react";
 
 enum Theme {
   light = "light",
-  dark = "dark"
+  dark = "dark",
 }
 
 interface ThemeContextType {
@@ -11,20 +11,20 @@ interface ThemeContextType {
 }
 
 export const ThemeContext = createContext<ThemeContextType>({
-  theme: Theme.light, 
-  switchTheme: () => {}   
+  theme: Theme.light,
+  switchTheme: () => {},
 });
 
 interface ThemeContextProviderProps {
   children: ReactNode;
 }
 
-export function ThemeContextProvider({ children }: ThemeContextProviderProps) {
+export function ThemeContextProvider({children}: ThemeContextProviderProps) {
   const storedTheme = localStorage.getItem("theme") as Theme | null;
   const [theme, setTheme] = useState<Theme>(storedTheme || Theme.light);
 
-  function switchTheme(){
-    (theme == "light") ? setTheme(Theme.dark) : setTheme(Theme.light);
+  function switchTheme() {
+    theme == "light" ? setTheme(Theme.dark) : setTheme(Theme.light);
   }
 
   useEffect(() => {
@@ -32,7 +32,7 @@ export function ThemeContextProvider({ children }: ThemeContextProviderProps) {
   }, [theme]);
 
   return (
-    <ThemeContext.Provider value={{ theme, switchTheme }}>
+    <ThemeContext.Provider value={{theme, switchTheme}}>
       {children}
     </ThemeContext.Provider>
   );
