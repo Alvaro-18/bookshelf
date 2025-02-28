@@ -1,42 +1,57 @@
 import {MagnifyingGlassIcon} from "@radix-ui/react-icons";
 import {Box, TextField} from "@radix-ui/themes";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState, useCallback} from "react";
 import {Container} from "./Index.styles";
 import {FilterPopover} from "../FilterPopover/Index";
 import {FilterPageSize} from "../FilterPageSize/Index";
-import {FiltersInterface} from "../../interfaces/Filters";
+import {FiltersInterface} from "../../interfaces/Filters.interface";
+import {UserContext} from "../../contexts/UserContext";
 
 export const Filters = ({
+  filterId,
   columnFilters,
   setColumnFilters,
   paginationSize,
   setPagination,
 }: FiltersInterface) => {
-  const bookName = columnFilters.find(book => book.id == "title")?.value || "";
-  const [value, setValue] = useState(bookName);
+  const [searchItem, setSearchItem] = useState({id: filterId, value: ""});
+  const {bookCategories} = useContext(UserContext);
 
-  const onFilterChange = (id: string, value: string) => {
-    setColumnFilters(prev => [...prev.filter(f => f.id !== id), {id, value}]);
-  };
+  const onFilterChange = useCallback(
+    (value: string, filterId: string) => {
+      setColumnFilters(prev => [
+        ...prev.filter(f => f.id !== filterId),
+        {id: filterId, value},
+      ]);
+    },
+    [filterId],
+  );
+
+  useEffect(() => {
+    const filterValue =
+      columnFilters.find(filter => filter.id === filterId)?.value || "";
+    setSearchItem({id: filterId, value: filterValue});
+  }, [filterId]);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      onFilterChange("title", value);
+      onFilterChange(searchItem.value, searchItem.id);
     }, 500);
 
     return () => clearTimeout(timeout);
-  }, [value]);
+  }, [searchItem, onFilterChange]);
 
   return (
     <Container>
       <Box maxWidth="300px">
         <TextField.Root
-          placeholder="Search the book name"
+          aria-label="Search the name"
+          placeholder={`Search the name`}
           size="2"
-          onChange={e => {
-            setValue(e.target.value);
-          }}
-          value={value}>
+          onChange={e =>
+            setSearchItem(prev => ({...prev, value: e.target.value}))
+          }
+          value={searchItem.value}>
           <TextField.Slot>
             <MagnifyingGlassIcon height="16" width="16" />
           </TextField.Slot>
@@ -46,7 +61,7 @@ export const Filters = ({
         columnFilters={columnFilters}
         setColumnFilters={setColumnFilters}
         filterId="category"
-        options={["Fantasy", "Mystery", "Terror"]}
+        options={bookCategories}
       />
       <FilterPageSize
         paginationSize={paginationSize}
