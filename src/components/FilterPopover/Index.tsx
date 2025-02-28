@@ -1,6 +1,9 @@
 import {DropdownMenuIcon} from "@radix-ui/react-icons";
 import {Box, Button, Flex, Popover} from "@radix-ui/themes";
-import {GenericPopovers, PopoverItemInterface} from "../../interfaces/Filters";
+import {
+  GenericPopovers,
+  PopoverItemInterface,
+} from "../../interfaces/Filters.interface";
 
 function PopoverItem({
   item,
