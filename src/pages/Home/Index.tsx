@@ -60,12 +60,11 @@ export const HomePage = () => {
     <Container>
       <Header>
         <h1>
-          <ActivityLogIcon width={24} height={24} /> {tabState.name} List
+          <ActivityLogIcon width={24} height={24} /> {tabState.name} list
         </h1>
         <Nav>
           <Button
           data-test="navigation-book-button"
-
             onClick={() => setTabState({name: "book"})}
             variant={tabState.name == "book" ? "solid" : "outline"}
             color={tabState.name == "book" ? "brown" : "gray"}
