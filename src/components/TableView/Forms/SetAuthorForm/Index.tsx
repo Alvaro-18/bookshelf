@@ -49,8 +49,11 @@ export const SetAuthorForm = ({data}: {data?: Author}) => {
   };
 
   const onSubmit: SubmitHandler<Author> = author => {
-    console.log(data?.id);
-    setAuthor({...author, id: crypto.randomUUID()});
+    if(!data) {
+      setAuthor({...author, id: crypto.randomUUID()});
+    } else {
+      setAuthor(author)
+    }
     if (author.category) {
       addAuthorCategory(author.category);
     }
@@ -63,11 +66,11 @@ export const SetAuthorForm = ({data}: {data?: Author}) => {
     <Dialog.Root>
       <Dialog.Trigger>
         {data ? (
-          <Button variant="outline" color="grass">
+          <Button variant="outline" color="grass" data-test="edit-button">
             <Pencil1Icon />
           </Button>
         ) : (
-          <Button variant="outline" color="brown">
+          <Button variant="outline" color="brown" data-test="add-button">
             Add new Author +
           </Button>
         )}
@@ -90,10 +93,18 @@ export const SetAuthorForm = ({data}: {data?: Author}) => {
                 control={control}
                 rules={{required: "Full name required"}}
                 render={({field}) => (
-                  <TextField.Root placeholder="Full name" {...field} />
+                  <TextField.Root
+                    placeholder="Full name"
+                    {...field}
+                    data-test="full-name-input"
+                  />
                 )}
               />
-              <Text color="red" size="1" mt="1">
+              <Text
+                color="red"
+                size="1"
+                mt="1"
+                data-test="full-name-error-message">
                 {errors.fullName?.message}
               </Text>
             </label>
@@ -110,10 +121,15 @@ export const SetAuthorForm = ({data}: {data?: Author}) => {
                     resize={"none"}
                     placeholder="Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nesciunt debitis distinctio omnis modi"
                     {...field}
+                    data-test="biography-input"
                   />
                 )}
               />
-              <Text color="red" size="1" mt="1">
+              <Text
+                color="red"
+                size="1"
+                mt="1"
+                data-test="biography-error-message">
                 {errors.biography?.message}
               </Text>
             </label>
@@ -133,10 +149,15 @@ export const SetAuthorForm = ({data}: {data?: Author}) => {
                     type="date"
                     placeholder="mm-dd-yyy"
                     {...field}
+                    data-test="date-of-birth-input"
                   />
                 )}
               />
-              <Text color="red" size="1" mt="1">
+              <Text
+                color="red"
+                size="1"
+                mt="1"
+                data-test="date-of-birth-error-message">
                 {errors.dateOfBirth?.message}
               </Text>
             </label>
@@ -149,10 +170,18 @@ export const SetAuthorForm = ({data}: {data?: Author}) => {
                 control={control}
                 rules={{required: "Nationality required"}}
                 render={({field}) => (
-                  <TextField.Root placeholder="nationality" {...field} />
+                  <TextField.Root
+                    placeholder="nationality"
+                    {...field}
+                    data-test="nationality-input"
+                  />
                 )}
               />
-              <Text color="red" size="1" mt="1">
+              <Text
+                color="red"
+                size="1"
+                mt="1"
+                data-test="nationality-error-message">
                 {errors.nationality?.message}
               </Text>
             </label>
@@ -165,10 +194,18 @@ export const SetAuthorForm = ({data}: {data?: Author}) => {
                 control={control}
                 rules={{required: "Category required"}}
                 render={({field}) => (
-                  <TextField.Root placeholder="category" {...field} />
+                  <TextField.Root
+                    placeholder="category"
+                    {...field}
+                    data-test="category-author-input"
+                  />
                 )}
               />
-              <Text color="red" size="1" mt="1">
+              <Text
+                color="red"
+                size="1"
+                mt="1"
+                data-test="category-author-error-message">
                 {errors.category?.message}
               </Text>
             </label>
@@ -176,12 +213,14 @@ export const SetAuthorForm = ({data}: {data?: Author}) => {
 
           <Flex gap="3" mt="4" justify="end">
             <Dialog.Close>
-              <Button variant="soft" color="gray" onClick={() => reset()}>
+              <Button variant="soft" color="gray" onClick={() => reset()}  data-test="close-modal-button">
                 Cancel
               </Button>
             </Dialog.Close>
 
-            <Button type="submit">Save</Button>
+            <Button type="submit" data-test="submit-button">
+              Save
+            </Button>
           </Flex>
         </form>
       </Dialog.Content>

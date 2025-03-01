@@ -38,7 +38,7 @@ export const FilterPopover = ({
     <Box>
       <Popover.Root>
         <Popover.Trigger>
-          <Button variant="soft" color="gray">
+          <Button variant="soft" color="gray" data-test="category-filter-button">
             <DropdownMenuIcon />
             {filterId}
           </Button>

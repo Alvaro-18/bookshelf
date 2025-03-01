@@ -42,9 +42,13 @@ export const SetBookForm = ({data}: {data?: Book}) => {
     const author = authors.find(item => item.id === book.author.id);
     if (!author) return;
 
-    const newBook = {...book, author, id: crypto.randomUUID()};
-    setBook(newBook);
-    addBookCategory(newBook.category);
+    if (!data) {
+      setBook({...book, id: crypto.randomUUID(), author});
+    } else {
+      setBook({...book, author});
+    }
+
+    addBookCategory(book.category);
     if (!data) {
       reset();
     }
@@ -54,11 +58,11 @@ export const SetBookForm = ({data}: {data?: Book}) => {
     <Dialog.Root>
       <Dialog.Trigger>
         {data ? (
-          <Button variant="outline" color="grass">
+          <Button variant="outline" color="grass" data-test="edit-button">
             <Pencil1Icon />
           </Button>
         ) : (
-          <Button variant="outline" color="brown">
+          <Button variant="outline" color="brown" data-test="add-button">
             Add new book +
           </Button>
         )}
@@ -81,10 +85,14 @@ export const SetBookForm = ({data}: {data?: Book}) => {
                 control={control}
                 rules={{required: "Title required"}}
                 render={({field}) => (
-                  <TextField.Root placeholder="title" {...field} />
+                  <TextField.Root
+                    placeholder="Title"
+                    {...field}
+                    data-test="title-input"
+                  />
                 )}
               />
-              <Text color="red" size="1" mt="1">
+              <Text color="red" size="1" mt="1" data-test="title-error-message">
                 {errors.title?.message}
               </Text>
             </label>
@@ -102,11 +110,17 @@ export const SetBookForm = ({data}: {data?: Book}) => {
                     {...field}
                     value={field.value}
                     onValueChange={field.onChange}>
-                    <Select.Trigger placeholder="Select an author" />
+                    <Select.Trigger
+                      placeholder="Select an author"
+                      data-test="open-select-button"
+                    />
 
                     <Select.Content>
                       {authors.map((item, index) => (
-                        <Select.Item key={index} value={item.id}>
+                        <Select.Item
+                          data-test="select"
+                          key={index}
+                          value={item.id}>
                           {item.fullName}
                         </Select.Item>
                       ))}
@@ -114,7 +128,12 @@ export const SetBookForm = ({data}: {data?: Book}) => {
                   </Select.Root>
                 )}
               />
-              <Text as="div" color="red" size="1" mt="1">
+              <Text
+                as="div"
+                color="red"
+                size="1"
+                mt="1"
+                data-test="author-error-message">
                 {errors.author?.id?.message}
               </Text>
             </label>
@@ -128,10 +147,18 @@ export const SetBookForm = ({data}: {data?: Book}) => {
                 control={control}
                 rules={{required: "Publisher required"}}
                 render={({field}) => (
-                  <TextField.Root placeholder="publisher" {...field} />
+                  <TextField.Root
+                    placeholder="Publisher"
+                    {...field}
+                    data-test="publisher-input"
+                  />
                 )}
               />
-              <Text color="red" size="1" mt="1">
+              <Text
+                color="red"
+                size="1"
+                mt="1"
+                data-test="publisher-error-message">
                 {errors.publisher?.message}
               </Text>
             </label>
@@ -144,7 +171,7 @@ export const SetBookForm = ({data}: {data?: Book}) => {
                 name="yearOfPublication"
                 control={control}
                 rules={{
-                  required: "year of publication required",
+                  required: "Year of publication required",
                   maxLength: {
                     value: 4,
                     message: "Year of publication should not exceed 4 digits",
@@ -155,10 +182,15 @@ export const SetBookForm = ({data}: {data?: Book}) => {
                     type="number"
                     placeholder="Year of publication"
                     {...field}
+                    data-test="year-of-publication-input"
                   />
                 )}
               />
-              <Text color="red" size="1" mt="1">
+              <Text
+                color="red"
+                size="1"
+                mt="1"
+                data-test="year-of-publication-error-message">
                 {errors.yearOfPublication?.message}
               </Text>
             </label>
@@ -171,10 +203,18 @@ export const SetBookForm = ({data}: {data?: Book}) => {
                 control={control}
                 rules={{required: "Language required"}}
                 render={({field}) => (
-                  <TextField.Root placeholder="language" {...field} />
+                  <TextField.Root
+                    placeholder="Language"
+                    {...field}
+                    data-test="language-input"
+                  />
                 )}
               />
-              <Text color="red" size="1" mt="1">
+              <Text
+                color="red"
+                size="1"
+                mt="1"
+                data-test="language-error-message">
                 {errors.language?.message}
               </Text>
             </label>
@@ -187,10 +227,19 @@ export const SetBookForm = ({data}: {data?: Book}) => {
                 control={control}
                 rules={{required: "Number of pages required"}}
                 render={({field}) => (
-                  <TextField.Root type="number" placeholder="1" {...field} />
+                  <TextField.Root
+                    type="number"
+                    placeholder="1"
+                    {...field}
+                    data-test="number-of-pages-input"
+                  />
                 )}
               />
-              <Text color="red" size="1" mt="1">
+              <Text
+                color="red"
+                size="1"
+                mt="1"
+                data-test="number-of-pages-error-message">
                 {errors.numberOfPages?.message}
               </Text>
             </label>
@@ -203,10 +252,18 @@ export const SetBookForm = ({data}: {data?: Book}) => {
                 control={control}
                 rules={{required: "Category required"}}
                 render={({field}) => (
-                  <TextField.Root placeholder="Category" {...field} />
+                  <TextField.Root
+                    placeholder="Category"
+                    {...field}
+                    data-test="category-book-input"
+                  />
                 )}
               />
-              <Text color="red" size="1" mt="1">
+              <Text
+                color="red"
+                size="1"
+                mt="1"
+                data-test="category-book-error-message">
                 {errors.category?.message}
               </Text>
             </label>
@@ -223,10 +280,15 @@ export const SetBookForm = ({data}: {data?: Book}) => {
                     resize={"none"}
                     placeholder="Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nesciunt debitis distinctio omnis modi dolorum autem nulla, sit laborum voluptates ab animi nostrum ea nemo. Reprehenderit maxime eveniet quaerat expedita totam!"
                     {...field}
+                    data-test="synopsis-input"
                   />
                 )}
               />
-              <Text color="red" size="1" mt="1">
+              <Text
+                color="red"
+                size="1"
+                mt="1"
+                data-test="synopsis-error-message">
                 {errors.synopsis?.message}
               </Text>
             </label>
@@ -234,12 +296,18 @@ export const SetBookForm = ({data}: {data?: Book}) => {
 
           <Flex gap="3" mt="4" justify="end">
             <Dialog.Close>
-              <Button variant="soft" color="gray" onClick={() => reset()}>
+              <Button
+                variant="soft"
+                color="gray"
+                onClick={() => reset()}
+                data-test="close-modal-button">
                 Cancel
               </Button>
             </Dialog.Close>
 
-            <Button type="submit">Save</Button>
+            <Button type="submit" data-test="submit-button">
+              Save
+            </Button>
           </Flex>
         </form>
       </Dialog.Content>

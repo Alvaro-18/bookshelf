@@ -5,8 +5,8 @@ export const DeleteButton = ({onClick}: {onClick: () => void}) => {
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger>
-        <Button variant="outline" color="red">
-          <TrashIcon color="#fff" />
+        <Button variant="outline" color="red" data-test="delete-button">
+          <TrashIcon />
         </Button>
       </AlertDialog.Trigger>
       <AlertDialog.Content maxWidth="450px">
@@ -22,7 +22,7 @@ export const DeleteButton = ({onClick}: {onClick: () => void}) => {
             </Button>
           </AlertDialog.Cancel>
           <AlertDialog.Action>
-            <Button variant="solid" color="red" onClick={onClick}>
+            <Button variant="solid" color="red" onClick={onClick} data-test="delete-alert-button">
               Delete
             </Button>
           </AlertDialog.Action>

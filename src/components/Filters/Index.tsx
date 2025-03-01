@@ -51,7 +51,9 @@ export const Filters = ({
           onChange={e =>
             setSearchItem(prev => ({...prev, value: e.target.value}))
           }
-          value={searchItem.value}>
+          value={searchItem.value}
+          data-test="search-input"
+          >
           <TextField.Slot>
             <MagnifyingGlassIcon height="16" width="16" />
           </TextField.Slot>

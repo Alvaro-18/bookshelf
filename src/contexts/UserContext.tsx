@@ -110,6 +110,8 @@ export function UserContextProvider({children}: UserContextProviderProps) {
 
   function deleteAuthor(id: string) {
     const filteredList = authors.filter(item => item.id !== id);
+    const filteredBookList = books.filter(item => item.author.id !== id)
+    setBooks(filteredBookList);
     setAuthors(filteredList);
   }
 

@@ -1,5 +1,5 @@
 import {FilePlusIcon} from "@radix-ui/react-icons";
-import {Button, DataList, Dialog} from "@radix-ui/themes";
+import {Button, DataList, Dialog, Flex} from "@radix-ui/themes";
 import {Book} from "../../../../types/book.type";
 import {Author} from "../../../../types/author.type";
 
@@ -48,13 +48,20 @@ export const MoreInfoButton = ({data}: {data: Book | Author}) => {
   return (
     <Dialog.Root>
       <Dialog.Trigger>
-        <Button variant="outline" color="violet">
+        <Button variant="outline" color="violet" data-test="more-info-button">
           <FilePlusIcon />
         </Button>
       </Dialog.Trigger>
 
       <Dialog.Content maxWidth="450px">
-        <Dialog.Title>More Info</Dialog.Title>
+        <Flex direction={"row"} justify={"between"}>
+          <Dialog.Title>More Info</Dialog.Title>
+          <Dialog.Close >
+            <Button variant="outline" color="red" data-test="close-more-info-button-modal">
+              X
+            </Button>
+          </Dialog.Close>
+        </Flex>
         <Details data={data} />
       </Dialog.Content>
     </Dialog.Root>

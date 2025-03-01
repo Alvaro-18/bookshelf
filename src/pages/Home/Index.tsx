@@ -27,7 +27,7 @@ export const HomePage = () => {
       accessorKey: tab == "book" ? "author" : "dateOfBirth",
       header: tab == "book" ? "author" : "Date of birth",
       cell: (props: any) => (
-        <p>{tab == "book" ? props.getValue()?.title : props.getValue()}</p>
+        <p>{tab == "book" ? props.getValue()?.fullName : props.getValue()}</p>
       ),
     },
     {
@@ -64,6 +64,8 @@ export const HomePage = () => {
         </h1>
         <Nav>
           <Button
+          data-test="navigation-book-button"
+
             onClick={() => setTabState({name: "book"})}
             variant={tabState.name == "book" ? "solid" : "outline"}
             color={tabState.name == "book" ? "brown" : "gray"}
@@ -71,6 +73,8 @@ export const HomePage = () => {
             <BookmarkIcon /> Books
           </Button>
           <Button
+          data-test="navigation-author-button"
+
             onClick={() => setTabState({name: "author"})}
             variant={tabState.name == "author" ? "solid" : "outline"}
             color={tabState.name == "author" ? "green" : "gray"}
