@@ -13,7 +13,7 @@ import {Pencil1Icon} from "@radix-ui/react-icons";
 import {Author} from "../../../../types/author.type";
 
 export const SetAuthorForm = ({data}: {data?: Author}) => {
-  const {setAuthor} = useContext(UserContext);
+  const {setAuthor, addAuthorCategory} = useContext(UserContext);
   const {
     control,
     handleSubmit,
@@ -21,7 +21,7 @@ export const SetAuthorForm = ({data}: {data?: Author}) => {
     reset,
   } = useForm({
     defaultValues: data || {
-      id: `${Math.random()}`,
+      id: "",
       fullName: "",
       biography: "",
       dateOfBirth: "",
@@ -45,11 +45,15 @@ export const SetAuthorForm = ({data}: {data?: Author}) => {
       return "Author must be at least 6 years old";
     }
 
-    return true; 
+    return true;
   };
 
   const onSubmit: SubmitHandler<Author> = author => {
-    setAuthor(author);
+    console.log(data?.id);
+    setAuthor({...author, id: crypto.randomUUID()});
+    if (author.category) {
+      addAuthorCategory(author.category);
+    }
     if (!data) {
       reset();
     }

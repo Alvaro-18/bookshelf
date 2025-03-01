@@ -22,7 +22,7 @@ export const SetBookForm = ({data}: {data?: Book}) => {
     reset,
   } = useForm({
     defaultValues: data || {
-      id: `${Math.random()}`,
+      id: "",
       title: "",
       author: {
         id: "",
@@ -42,7 +42,7 @@ export const SetBookForm = ({data}: {data?: Book}) => {
     const author = authors.find(item => item.id === book.author.id);
     if (!author) return;
 
-    const newBook = {...book, author};
+    const newBook = {...book, author, id: crypto.randomUUID()};
     setBook(newBook);
     addBookCategory(newBook.category);
     if (!data) {

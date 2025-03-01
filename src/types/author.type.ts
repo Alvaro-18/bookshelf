@@ -5,5 +5,5 @@ export type Author = {
   dateOfBirth?: string;
   nationality?: string;
   category?: string;
-  menu: boolean
+  menu: boolean;
 };

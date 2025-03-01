@@ -17,7 +17,7 @@ export const HomePage = () => {
     name: "book",
   });
 
-  const getColumns = (tab: string) =>  [
+  const getColumns = (tab: string) => [
     {
       accessorKey: tab == "book" ? "title" : "fullName",
       header: tab == "book" ? "Title" : "Full name",
@@ -25,19 +25,13 @@ export const HomePage = () => {
     },
     {
       accessorKey: tab == "book" ? "author" : "dateOfBirth",
-      header:
-      tab == "book" ? "author" : "Date of birth",
+      header: tab == "book" ? "author" : "Date of birth",
       cell: (props: any) => (
-        <p>
-          {tab == "book"
-            ? props.getValue()?.title
-            : props.getValue()}
-        </p>
+        <p>{tab == "book" ? props.getValue()?.title : props.getValue()}</p>
       ),
     },
     {
-      accessorKey:
-      tab == "book" ? "yearOfPublication" : "nationality",
+      accessorKey: tab == "book" ? "yearOfPublication" : "nationality",
       header: tab == "book" ? "Year" : "Nationality",
       cell: (props: any) => <p>{props.getValue()}</p>,
     },
@@ -56,9 +50,12 @@ export const HomePage = () => {
       ),
     },
   ];
-  
-  const columns = useMemo(() => getColumns(tabState.name as "book" | "author"), [tabState.name]);
-  
+
+  const columns = useMemo(
+    () => getColumns(tabState.name as "book" | "author"),
+    [tabState.name],
+  );
+
   return (
     <Container>
       <Header>

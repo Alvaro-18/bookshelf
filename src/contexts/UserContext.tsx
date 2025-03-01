@@ -134,6 +134,10 @@ export function UserContextProvider({children}: UserContextProviderProps) {
     localStorage.setItem("bookCategories", JSON.stringify(bookCategories));
   }, [bookCategories]);
 
+  useEffect(() => {
+    localStorage.setItem("authorCategories", JSON.stringify(authorCategories));
+  }, [authorCategories]);
+
   return (
     <UserContext.Provider
       value={{
@@ -146,7 +150,7 @@ export function UserContextProvider({children}: UserContextProviderProps) {
         setAuthor,
         deleteAuthor,
         addAuthorCategory,
-        authorCategories
+        authorCategories,
       }}>
       {children}
     </UserContext.Provider>

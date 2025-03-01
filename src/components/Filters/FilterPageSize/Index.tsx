@@ -1,6 +1,6 @@
 import {DropdownMenuIcon} from "@radix-ui/react-icons";
 import {Button, Flex, Popover, Text} from "@radix-ui/themes";
-import {PopoverPagination} from "../../interfaces/Filters.interface";
+import {PopoverPagination} from "../../../interfaces/Filters.interface";
 
 export const FilterPageSize = ({
   paginationSize,

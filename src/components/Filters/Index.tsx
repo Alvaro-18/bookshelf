@@ -2,8 +2,8 @@ import {MagnifyingGlassIcon} from "@radix-ui/react-icons";
 import {Box, TextField} from "@radix-ui/themes";
 import {useContext, useEffect, useState, useCallback} from "react";
 import {Container} from "./Index.styles";
-import {FilterPopover} from "../FilterPopover/Index";
-import {FilterPageSize} from "../FilterPageSize/Index";
+import {FilterPopover} from "./FilterPopover/Index";
+import {FilterPageSize} from "./FilterPageSize/Index";
 import {FiltersInterface} from "../../interfaces/Filters.interface";
 import {UserContext} from "../../contexts/UserContext";
 
@@ -15,7 +15,7 @@ export const Filters = ({
   setPagination,
 }: FiltersInterface) => {
   const [searchItem, setSearchItem] = useState({id: filterId, value: ""});
-  const {bookCategories} = useContext(UserContext);
+  const {bookCategories, authorCategories} = useContext(UserContext);
 
   const onFilterChange = useCallback(
     (value: string, filterId: string) => {
@@ -58,10 +58,11 @@ export const Filters = ({
         </TextField.Root>
       </Box>
       <FilterPopover
+        key={filterId}
         columnFilters={columnFilters}
         setColumnFilters={setColumnFilters}
         filterId="category"
-        options={bookCategories}
+        options={filterId == "title" ? bookCategories : authorCategories}
       />
       <FilterPageSize
         paginationSize={paginationSize}

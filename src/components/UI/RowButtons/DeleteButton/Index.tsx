@@ -1,7 +1,7 @@
 import {TrashIcon} from "@radix-ui/react-icons";
 import {Flex, Button, AlertDialog} from "@radix-ui/themes";
 
-export const DeleteButton = ({onClick}:{onClick: () => void}) => {
+export const DeleteButton = ({onClick}: {onClick: () => void}) => {
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger>

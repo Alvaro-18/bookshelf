@@ -3,7 +3,7 @@ import {Box, Button, Flex, Popover} from "@radix-ui/themes";
 import {
   GenericPopovers,
   PopoverItemInterface,
-} from "../../interfaces/Filters.interface";
+} from "../../../interfaces/Filters.interface";
 
 function PopoverItem({
   item,
